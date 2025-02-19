@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from '@assets/icons'
+import { sendGTMEvent } from '@next/third-parties/google'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
@@ -53,6 +54,12 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         passHref
         {...rest}
         className={styles}
+        onClick={() => {
+          if (process.env.NODE_ENV === 'development') {
+            console.log('Link clicked!')
+            sendGTMEvent({ event: 'testingLinkClicked', value: 'testing' })
+          }
+        }}
       >
         {noStyles ? (
           children

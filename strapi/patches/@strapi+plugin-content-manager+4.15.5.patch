@@ -1,0 +1,21 @@
+diff --git a/node_modules/@strapi/plugin-content-manager/server/services/uid.js b/node_modules/@strapi/plugin-content-manager/server/services/uid.js
+index accc811..a285c59 100644
+--- a/node_modules/@strapi/plugin-content-manager/server/services/uid.js
++++ b/node_modules/@strapi/plugin-content-manager/server/services/uid.js
+@@ -15,14 +15,14 @@ module.exports = ({ strapi }) => ({
+       return this.findUniqueUID({
+         contentTypeUID,
+         field,
+-        value: slugify(targetValue, options),
++        value: slugify(targetValue, {...options, customReplacements: [ ['ä', 'a'] ] }),
+       });
+     }
+ 
+     return this.findUniqueUID({
+       contentTypeUID,
+       field,
+-      value: slugify(defaultValue || contentType.modelName, options),
++      value: slugify(defaultValue || contentType.modelName, {...options, customReplacements: [ ['ä', 'a'] ] }),
+     });
+   },
+ 

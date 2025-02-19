@@ -7,6 +7,7 @@ import 'swiper/css'
 // import CookieSettingsModal from '@components/atoms/Cookies/CookieSettingsModal'
 import MI18nProvider from '@components/atoms/MI18nProvider'
 import ThirdPartyScripts from '@components/atoms/ThirdPartyScripts'
+import { GoogleTagManager } from '@next/third-parties/google'
 import { HeroSectionOverlayProvider } from '@utils/heroSectionContentOverlay'
 import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
@@ -25,6 +26,7 @@ import skCommonNamespace from '../public/locales/sk/common.json'
 assert<Equals<typeof enCommonNamespace, typeof skCommonNamespace>>()
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  console.log('GTM', process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID)
   return (
     <>
       <Head>
@@ -48,6 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                   {/* TODO when enabling cookies: check if cookie banner is focus as first element on page */}
                   {/* <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}> */}
                   <ThirdPartyScripts />
+                  <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || ''} />
                   <Component {...pageProps} />
                   {/* </CookieConsent> */}
                 </OverlayProvider>
