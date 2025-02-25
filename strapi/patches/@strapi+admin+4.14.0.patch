@@ -1,0 +1,13 @@
+diff --git a/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js b/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js
+index f444514..53a45ec 100644
+--- a/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js
++++ b/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js
+@@ -95,7 +95,7 @@ const Wysiwyg = forwardRef(
+ 
+     const handleSelectAssets = (files) => {
+       const formattedFiles = files.map((f) => ({
+-        alt: f.alternativeText || f.name,
++        alt: `${f.alternativeText}||${f.caption}`,
+         url: prefixFileUrlWithBackendUrl(f.url),
+         mime: f.mime,
+       }));
