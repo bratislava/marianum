@@ -32,6 +32,7 @@ import DebtorsSection from '@/components/sections/DebtorsSection'
 import DisclosuresSection from '@/components/sections/DisclosuresSection'
 import DocumentsSection from '@/components/sections/DocumentsSection/DocumentsSection'
 import IframeSection from '@/components/sections/IframeSection'
+import MapOfManagedObjectsSection from '@/components/sections/MapOfManagedObjectsSection'
 import MapSection from '@/components/sections/MapSection'
 import MenuListingSection from '@/components/sections/MenuListingSection'
 import NewsListing from '@/components/sections/NewsSection'
@@ -57,6 +58,7 @@ import { getCeremoniesSectionPrefetches } from '@/services/fetchers/ceremoniesSe
 import { getDebtorsSectionPrefetches } from '@/services/fetchers/debtorsSectionFetcher'
 import { disclosuresSectionPrefetch } from '@/services/fetchers/disclosuresSectionFetcher'
 import { documentsSectionPrefetch } from '@/services/fetchers/documentsSectionFetcher'
+import { getMapOfManagedObjectsSectionPrefetch } from '@/services/fetchers/managedObjectsFetcher'
 import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
 import { partnersSectionPrefetch } from '@/services/fetchers/partnersSectionFetcher'
 import { getProceduresPrefetch } from '@/services/fetchers/proceduresFetcher'
@@ -198,6 +200,15 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             if (section?.__typename === 'ComponentSectionsMapSection') {
               return <MapSection key={`${section.__typename}-${section.id}`} section={section} />
             }
+            // eslint-disable-next-line no-secrets/no-secrets
+            if (section?.__typename === 'ComponentSectionsMapOfManagedObjects') {
+              return (
+                <MapOfManagedObjectsSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
             if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
               return (
                 <Section key={`${section.__typename}-${section.id}`}>
@@ -300,6 +311,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     getProceduresPrefetch(locale),
     getNewsListingPrefetch(locale),
     getMapSectionPrefetch(locale),
+    getMapOfManagedObjectsSectionPrefetch(locale),
     ...getArticleListingNewsPrefetches(locale),
     ...getCeremoniesSectionPrefetches(locale),
     ...ceremoniesArchiveSectionPrefetches,

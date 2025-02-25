@@ -9,11 +9,12 @@ import {
   BranchEntityFragment,
   CemeteryEntityFragment,
   GeneralEntityFragment,
+  ManagedObjectEntityFragment,
   NavigationItemFragment,
 } from '@/graphql'
 
 type BranchCemeteryLayoutProps = {
-  entity: BranchEntityFragment | CemeteryEntityFragment
+  entity: BranchEntityFragment | CemeteryEntityFragment | ManagedObjectEntityFragment
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode

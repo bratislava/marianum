@@ -187,12 +187,17 @@
   "MapSection": {
     "noResults": "Žiadne výsledky",
     "map": "Mapa",
-    "filtering": "Filtrácia",
-    "filters": {
-      "civil": "Civilné",
-      "historical": "Historické",
-      "war": "Vojnové"
-    }
+    "filtering": "Filtrovanie"
+  },
+  "MapSectionFilters": {
+    "civilny": "Civilné",
+    "historicky": "Historické",
+    "vojensky": "Vojnové",
+    "fontana": "Fontána",
+    "pitna_fontana": "Pitná fontána",
+    "hmlova_fontana": "Hmlová fontána",
+    "studna": "Studňa",
+    "rozprasovac": "Rozprašovač"
   },
   "DebtorsSection": {
     "th": {
@@ -243,6 +248,10 @@
     "openingHours": "Otváracie hodiny",
     "aboutCemetery": "O cintoríne",
     "aboutBranch": "O pobočke"
+  },
+  "ManagedObjectPage": {
+    "navigate": "Navigovať",
+    "aboutManagedObject": "O spravovanom objekte"
   },
   "SearchPage": {
     "pageTitle": "Vyhľadávanie",

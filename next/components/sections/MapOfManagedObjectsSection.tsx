@@ -1,5 +1,3 @@
-import 'mapbox-gl/dist/mapbox-gl.css'
-
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
@@ -15,20 +13,25 @@ import TagToggle from '@/components/atoms/TagToggle'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
-import { Enum_Cemetery_Type, MapSectionFragment } from '@/graphql'
-import { cemeteriesFetcher, getCemeteriesSwrKey } from '@/services/fetchers/cemeteriesFetcher'
+import { Enum_Managedobject_Type, MapOfManagedObjectsSectionFragment } from '@/graphql'
+import {
+  getManagedObjectsSwrKey,
+  managedObjectsFetcher,
+} from '@/services/fetchers/managedObjectsFetcher'
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
-type MapSectionProps = { section: MapSectionFragment }
+type MapOfManagedObjectsSectionProps = {
+  section: MapOfManagedObjectsSectionFragment
+}
 
-const MapSection = ({ section }: MapSectionProps) => {
+const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { t, i18n } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
-    getCemeteriesSwrKey(i18n.language),
-    cemeteriesFetcher(i18n.language),
+    getManagedObjectsSwrKey(i18n.language),
+    managedObjectsFetcher(i18n.language),
   )
 
   const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
@@ -37,9 +40,11 @@ const MapSection = ({ section }: MapSectionProps) => {
   })
 
   const defaultFilters = {
-    [Enum_Cemetery_Type.Civilny]: false,
-    [Enum_Cemetery_Type.Historicky]: false,
-    [Enum_Cemetery_Type.Vojensky]: false,
+    [Enum_Managedobject_Type.Fontana]: false,
+    [Enum_Managedobject_Type.PitnaFontana]: false,
+    [Enum_Managedobject_Type.HmlovaFontana]: false,
+    [Enum_Managedobject_Type.Studna]: false,
+    [Enum_Managedobject_Type.Rozprasovac]: false,
   }
 
   const {
@@ -49,12 +54,12 @@ const MapSection = ({ section }: MapSectionProps) => {
     setSearchQuery,
     selectedTypes,
     toggleSelectedTypes,
-    hoveredLandmarkSlug: hoveredCemeterySlug,
-    setHoveredLandmarkSlug: setHoveredCemeterySlug,
+    hoveredLandmarkSlug: hoveredManagedObjectSlug,
+    setHoveredLandmarkSlug: setHoveredManagedObjectSlug,
     isMapOrFiltersDisplayed,
     setMapOrFiltersDisplayed,
-    filteredLandmarks: filteredCemeteries,
-  } = useMapWithFilteringAndSearch(dataToDisplay?.cemeteries?.data, defaultFilters)
+    filteredLandmarks: filteredManagedObjects,
+  } = useMapWithFilteringAndSearch(dataToDisplay?.managedObjects?.data, defaultFilters)
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
@@ -79,7 +84,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           {/* Search & filtering */}
           <div className="flex flex-col gap-3 border-b border-border p-5">
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
-            <ul aria-label={t('MapSection.filtering')} className="flex gap-2">
+            <ul aria-label={t('MapSection.filtering')} className="flex flex-wrap gap-2">
               {Object.entries(selectedTypes).map(([type]) => {
                 return (
                   <li key={type}>
@@ -99,20 +104,20 @@ const MapSection = ({ section }: MapSectionProps) => {
           <ul
             aria-label={t('general.results')}
             className="flex-1 overflow-auto"
-            onMouseLeave={() => setHoveredCemeterySlug(null)}
+            onMouseLeave={() => setHoveredManagedObjectSlug(null)}
           >
-            {filteredCemeteries.map((cemetery, index) => {
-              const { title, slug, address } = cemetery.attributes ?? {}
+            {filteredManagedObjects.map((managedObject, index) => {
+              const { title, slug, address } = managedObject.attributes ?? {}
 
               return (
                 <li key={slug}>
                   {index !== 0 && <hr className="mx-5 border-border" />}
                   <MLink
-                    onMouseEnter={() => setHoveredCemeterySlug(slug ?? '')}
+                    onMouseEnter={() => setHoveredManagedObjectSlug(slug ?? '')}
                     noStyles
-                    href={getFullPath(cemetery) ?? ''}
+                    href={getFullPath(managedObject) ?? ''}
                     className={cx('flex gap-2 px-5 py-3', {
-                      'bg-primary/5': slug === hoveredCemeterySlug,
+                      'bg-primary/5': slug === hoveredManagedObjectSlug,
                     })}
                   >
                     <div className="pt-[2px] text-primary">
@@ -126,7 +131,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                 </li>
               )
             })}
-            {filteredCemeteries.length === 0 && (
+            {filteredManagedObjects.length === 0 && (
               <div className="p-5">{t('MapSection.noResults')}</div>
             )}
           </ul>
@@ -147,8 +152,8 @@ const MapSection = ({ section }: MapSectionProps) => {
             }}
             cooperativeGestures
           >
-            {filteredCemeteries.map((cemetery) => {
-              const { latitude, longitude, slug } = cemetery.attributes ?? {}
+            {filteredManagedObjects.map((managedObject) => {
+              const { latitude, longitude, slug } = managedObject.attributes ?? {}
               if (latitude && longitude) {
                 return (
                   <Marker
@@ -161,14 +166,14 @@ const MapSection = ({ section }: MapSectionProps) => {
                     <motion.button
                       style={{ originY: 1 }}
                       initial={{ scale: 0 }}
-                      animate={{ scale: hoveredCemeterySlug === slug ? 1 : 0.75 }}
+                      animate={{ scale: hoveredManagedObjectSlug === slug ? 1 : 0.75 }}
                       whileTap={{ scale: 0.8 }}
                     >
                       <MLink
-                        onMouseEnter={() => setHoveredCemeterySlug(slug ?? '')}
-                        onMouseLeave={() => setHoveredCemeterySlug(null)}
+                        onMouseEnter={() => setHoveredManagedObjectSlug(slug ?? '')}
+                        onMouseLeave={() => setHoveredManagedObjectSlug(null)}
                         noStyles
-                        href={getFullPath(cemetery) ?? ''}
+                        href={getFullPath(managedObject) ?? ''}
                       >
                         <MapMarkerSvg />
                       </MLink>
@@ -197,4 +202,4 @@ const MapSection = ({ section }: MapSectionProps) => {
   )
 }
 
-export default MapSection
+export default MapOfManagedObjectsSection

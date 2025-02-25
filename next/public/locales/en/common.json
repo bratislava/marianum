@@ -187,12 +187,17 @@
   "MapSection": {
     "noResults": "No results...",
     "map": "Map",
-    "filtering": "Filtering",
-    "filters": {
-      "civil": "Civil",
-      "historical": "Historical",
-      "war": "War"
-    }
+    "filtering": "Filtering"
+  },
+  "MapSectionFilters": {
+    "civilny": "Civil",
+    "historicky": "Historical",
+    "vojensky": "War",
+    "fontana": "Fountain",
+    "pitna_fontana": "Drinking fountain",
+    "hmlova_fontana": "Mist fountain",
+    "studna": "Well",
+    "rozprasovac": "Sprinkler"
   },
   "DebtorsSection": {
     "th": {
@@ -243,6 +248,10 @@
     "openingHours": "Opening hours",
     "aboutCemetery": "About cemetery",
     "aboutBranch": "About branch"
+  },
+  "ManagedObjectPage": {
+    "navigate": "Navigate",
+    "aboutManagedObject": "About managed object"
   },
   "SearchPage": {
     "pageTitle": "Search",
