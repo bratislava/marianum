@@ -2640,10 +2640,10 @@
     yup "0.32.9"
     zod "^3.22.4"
 
-"@strapi/utils@^4.14.2", "@strapi/utils@^4.5.4":
-  version "4.14.5"
-  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.14.5.tgz#6fce660d6b31a6ad3644ec126b880033f02658c4"
-  integrity sha512-0/lC5C2FyaCO+TDBb/jk3CQxtmEbxBZzt0NSb0M6tgAYB6o9eiC2IHZT11Ni98p+GgBlT3AhGQJ5idUa/j/hWA==
+"@strapi/utils@^4.15.4", "@strapi/utils@^4.5.4":
+  version "4.25.20"
+  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.25.20.tgz#3c31fd3abfea79f4328e2872312da8d5fd3e3c06"
+  integrity sha512-GyZ1LXx0Wt4psJwGMd52DF2fKsarh+N8UEChGOsYuLEvo0pPjxN1RkUKArlzyLgh5u0fk08/uPbwdjLWQ3QgYg==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.30.0"
@@ -10460,13 +10460,13 @@ strapi-plugin-meilisearch@^0.9.2:
     "@strapi/utils" "^4.5.4"
     meilisearch "^0.30.0"
 
-strapi-plugin-navigation@^2.2.1:
-  version "2.2.16"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-navigation/-/strapi-plugin-navigation-2.2.16.tgz#584231ca995abe4133d57f87a9ac844c9a3deecc"
-  integrity sha512-hrWbabm7c0txc7vYdhpcowfm4S49/MGUuicyUvjZhwBcnDnZmpqmtyTT1bVco9QDEVc6Ks13Jc6kgWZdC0GbrQ==
+strapi-plugin-navigation@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-navigation/-/strapi-plugin-navigation-2.3.1.tgz#b064299ff5f462db5bb65dd9e9dee093c20ee254"
+  integrity sha512-kGZ5axF+Iclg12BNy7D/HhFmcER4DL3y/Zkf954O9h9QZc6dGsr+R1eXzEOyktoJlwMFcZseOxX7EXss4ixj8Q==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
-    "@strapi/utils" "^4.14.2"
+    "@strapi/utils" "^4.15.4"
     lodash "^4.17.21"
     pluralize "^8.0.0"
     react "^18.2.0"
